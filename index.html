@@ -116,6 +116,10 @@
     caret-color: #00D173;
     min-width: 0;
   }
+  .terminal-input:focus-visible {
+    outline: 2px solid #00D173;
+    outline-offset: 2px;
+  }
 
   .terminal-input::placeholder { color: #2a2a2a; }
 
@@ -175,7 +179,7 @@
   .launch-progress { width: min(300px, 80vw); height: 4px; background: #222; margin-top: 16px; overflow: hidden; opacity: 0; transition: opacity 0.3s; }
   .launch-progress.visible { opacity: 1; }
   .launch-progress-bar { height: 100%; background: #00D173; width: 0%; transition: width 3s ease; }
-  .launch-msg { color: #444; font-size: 13px; margin-top: 20px; text-align: center; max-width: min(400px, 80vw); opacity: 0; transition: opacity 0.8s; font-family: 'JetBrains Mono', monospace; }
+  .launch-msg { color: #7a7a7a; font-size: 13px; margin-top: 20px; text-align: center; max-width: min(400px, 80vw); opacity: 0; transition: opacity 0.8s; font-family: 'JetBrains Mono', monospace; }
   .launch-msg.visible { opacity: 1; }
 
   /* ── Responsive ── */
@@ -207,6 +211,18 @@
   @media (hover: none) and (pointer: coarse) {
     .job-result { padding: 8px 0; }
     .terminal-input { font-size: 16px; }
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .rocket-text.launched { transition: none; }
+    .scanline { display: none; }
   }
 
   /* ── Vapi voice button overrides ── */
@@ -259,7 +275,7 @@
     line-height: 1.7;
   }
   .visitor-body .prompt-line .g { color: #00D173; }
-  .visitor-body .prompt-line .d { color: #444; }
+  .visitor-body .prompt-line .d { color: #7a7a7a; }
   .visitor-body .prompt-line .b { color: #fff; font-weight: 700; }
   .visitor-label {
     color: #7a7a7a;
@@ -282,6 +298,11 @@
     outline: none;
     min-height: 44px;
     caret-color: #00D173;
+  }
+  .visitor-input:focus-visible {
+    border-color: #00D173;
+    outline: 2px solid #00D173;
+    outline-offset: -2px;
   }
   .visitor-input:focus { border-color: #00D173; }
   .visitor-input::placeholder { color: #2a2a2a; }
@@ -382,7 +403,7 @@
       <label class="visitor-label" for="visitorName">name</label>
       <input type="text" class="visitor-input" id="visitorName" placeholder="$ enter your name" autocomplete="name" autofocus>
       <label class="visitor-label" for="visitorEmail">email</label>
-      <input type="email" class="visitor-input" id="visitorEmail" placeholder="$ enter your email">
+      <input type="email" class="visitor-input" id="visitorEmail" placeholder="$ enter your email" autocomplete="email">
       <button class="visitor-submit" id="visitorSubmit">Enter the Factory →</button>
       <button class="visitor-skip" id="visitorSkip">skip — I'll just look around</button>
     </div>
@@ -392,7 +413,7 @@
 <div class="scanline" aria-hidden="true"></div>
 
 <!-- Rocket launch overlay -->
-<div class="rocket-overlay" id="rocketOverlay">
+<div class="rocket-overlay" id="rocketOverlay" role="alertdialog" aria-modal="true" aria-label="Application launch animation">
   <div class="launch-countdown" id="launchCountdown"></div>
   <div class="rocket-text" id="rocketEmoji">🚀</div>
   <div class="launch-exhaust" id="launchExhaust">🔥🔥🔥</div>
@@ -1238,6 +1259,23 @@ function dismissVisitorModal() {
   var inp = document.querySelector('.terminal-input');
   if (inp) inp.focus({ preventScroll: true });
 }
+
+// Focus trap for visitor modal (A11Y)
+visitorOverlay.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    visitorSkip.click();
+    return;
+  }
+  if (e.key !== 'Tab') return;
+  var focusable = visitorOverlay.querySelectorAll('input, button');
+  var first = focusable[0];
+  var last = focusable[focusable.length - 1];
+  if (e.shiftKey) {
+    if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+  } else {
+    if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+});
 
 visitorSubmit.addEventListener('click', function() {
   captureVisitor(visitorNameInput.value.trim(), visitorEmailInput.value.trim());

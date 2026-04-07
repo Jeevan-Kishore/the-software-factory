@@ -173,6 +173,10 @@
     caret-color: #00D173;
   }
   .filter-input:focus { border-color: #00D173; }
+  .filter-input:focus-visible {
+    outline: 2px solid #00D173;
+    outline-offset: 2px;
+  }
   .filter-input::placeholder { color: #333; }
 
   .filter-tag {
@@ -231,6 +235,17 @@
     .title-bar { padding: 6px 8px; }
     .job-loc { display: none; }
     .filter-tag { font-size: 11px; padding: 4px 8px; }
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .scanline { display: none; }
   }
 
   .skip-link {
