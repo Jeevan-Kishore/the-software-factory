@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The Software Factory — Locus Engineering careers. 30+ open roles across engineering, product, design, and more. Build systems that optimize 1.5B+ deliveries.">
 <title>Locus · The Software Factory</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
@@ -61,7 +62,7 @@
   .dot-red { background: #ff5f57; }
   .dot-yellow { background: #ffbd2e; }
   .dot-green { background: #28c840; }
-  .title-text { color: #444; font-size: 11px; margin-left: 12px; user-select: none; }
+  .title-text { color: #7c7c7c; font-size: 11px; margin-left: 12px; user-select: none; }
 
   .terminal-body {
     background: #0d0d0d;
@@ -80,7 +81,7 @@
 
   .g { color: #00D173; }
   .w { color: #d4d4d4; }
-  .d { color: #444; }
+  .d { color: #7a7a7a; }
   .b { color: #fff; font-weight: 700; }
 
   .cursor {
@@ -151,7 +152,7 @@
     color: #111;
     transition: color 4s ease;
   }
-  .hint-line.visible { color: #333; }
+  .hint-line.visible { color: #7a7a7a; }
 
   /* Rocket overlay */
   .rocket-overlay {
@@ -242,7 +243,7 @@
   .visitor-titlebar .dot-red { background: #ff5f57; }
   .visitor-titlebar .dot-yellow { background: #ffbd2e; }
   .visitor-titlebar .dot-green { background: #28c840; }
-  .visitor-titlebar-text { color: #444; font-size: 11px; margin-left: 12px; user-select: none; font-family: 'JetBrains Mono', monospace; }
+  .visitor-titlebar-text { color: #7c7c7c; font-size: 11px; margin-left: 12px; user-select: none; font-family: 'JetBrains Mono', monospace; }
   .visitor-body {
     background: #0d0d0d;
     border: 1px solid #222;
@@ -261,7 +262,7 @@
   .visitor-body .prompt-line .d { color: #444; }
   .visitor-body .prompt-line .b { color: #fff; font-weight: 700; }
   .visitor-label {
-    color: #444;
+    color: #7a7a7a;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     margin-bottom: 4px;
@@ -303,7 +304,7 @@
   .visitor-skip {
     display: block;
     text-align: center;
-    color: #333;
+    color: #7a7a7a;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     margin-top: 14px;
@@ -313,7 +314,7 @@
     width: 100%;
     transition: color 0.15s;
   }
-  .visitor-skip:hover { color: #555; }
+  .visitor-skip:hover { color: #949494; }
 
   @media (max-width: 768px) {
     .visitor-input { font-size: 16px; }
@@ -343,25 +344,44 @@
   }
   .mic-fallback svg { width: 22px; height: 22px; stroke: #0a0a0a; fill: none; }
   .mic-fallback.vapi-loaded { display: none; }
+
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    padding: 8px 16px;
+    background: #00D173;
+    color: #0a0a0a;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 13px;
+    z-index: 1000;
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    top: 0;
+  }
 </style>
 </head>
 <body>
 
+<a href="#output" class="skip-link">Skip to content</a>
+
 <!-- Visitor capture -->
-<div class="visitor-overlay" id="visitorOverlay">
+<div class="visitor-overlay" id="visitorOverlay" role="dialog" aria-modal="true" aria-labelledby="visitorTitle">
   <div class="visitor-window">
     <div class="visitor-titlebar">
-      <div class="dot dot-red"></div>
-      <div class="dot dot-yellow"></div>
-      <div class="dot dot-green"></div>
+      <div class="dot dot-red" aria-hidden="true"></div>
+      <div class="dot dot-yellow" aria-hidden="true"></div>
+      <div class="dot dot-green" aria-hidden="true"></div>
       <span class="visitor-titlebar-text">factory.locus.sh — identify</span>
     </div>
     <div class="visitor-body">
-      <div class="prompt-line"><span class="g">▶</span> <span class="b">Before you explore — who are we talking to?</span></div>
+      <div class="prompt-line" id="visitorTitle"><span class="g">▶</span> <span class="b">Before you explore — who are we talking to?</span></div>
       <div class="prompt-line"><span class="d">We review every visitor personally. No spam, ever.</span></div>
-      <label class="visitor-label">name</label>
+      <label class="visitor-label" for="visitorName">name</label>
       <input type="text" class="visitor-input" id="visitorName" placeholder="$ enter your name" autocomplete="name" autofocus>
-      <label class="visitor-label">email</label>
+      <label class="visitor-label" for="visitorEmail">email</label>
       <input type="email" class="visitor-input" id="visitorEmail" placeholder="$ enter your email">
       <button class="visitor-submit" id="visitorSubmit">Enter the Factory →</button>
       <button class="visitor-skip" id="visitorSkip">skip — I'll just look around</button>
@@ -369,7 +389,7 @@
   </div>
 </div>
 
-<div class="scanline"></div>
+<div class="scanline" aria-hidden="true"></div>
 
 <!-- Rocket launch overlay -->
 <div class="rocket-overlay" id="rocketOverlay">
@@ -384,19 +404,19 @@
 </div>
 
 <!-- Fallback mic button — visible until Vapi SDK loads with valid key -->
-<button class="mic-fallback" id="micFallback" title="Talk to Locus AI">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+<button class="mic-fallback" id="micFallback" title="Talk to Locus AI" aria-label="Talk to Locus AI">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
 </button>
 
-<div class="terminal">
-  <div class="title-bar">
-    <div class="dot dot-red"></div>
-    <div class="dot dot-yellow"></div>
-    <div class="dot dot-green"></div>
+<main class="terminal" aria-label="Locus Software Factory Terminal">
+  <header class="title-bar">
+    <div class="dot dot-red" aria-hidden="true"></div>
+    <div class="dot dot-yellow" aria-hidden="true"></div>
+    <div class="dot dot-green" aria-hidden="true"></div>
     <span class="title-text" id="titleText">locus@deus-ex-machina — zsh — 30+ open roles</span>
-  </div>
-  <div class="terminal-body" id="output"></div>
-</div>
+  </header>
+  <div class="terminal-body" id="output" role="log" aria-live="polite"></div>
+</main>
 
 <script>
 (function() {
@@ -459,7 +479,7 @@ blank();
 // ─── Hero section ───
 prompt('./deus-ex-machina');
 blank();
-line('<span class="b">  DEUS EX MACHINA</span>');
+line('<span class="b" role="heading" aria-level="1">  DEUS EX MACHINA</span>');
 blank();
 line('<span class="w">  The 2030 roadmap of every company became executable in 2026.</span>');
 line('<span class="w">  The engineers who recognise that — and build for it — won\'t</span>');
@@ -477,7 +497,7 @@ blank();
 prompt('cat manifesto.md');
 blank();
 divider();
-line('<span class="b">  THE SOFTWARE FACTORY</span>');
+line('<span class="b" role="heading" aria-level="2">  THE SOFTWARE FACTORY</span>');
 divider();
 blank();
 line('<span class="w">  Writing code is intelligence.</span>');
@@ -646,7 +666,7 @@ blank();
 // CTA Buttons
 var ctaDiv = document.createElement('div');
 ctaDiv.className = 'cta-container';
-ctaDiv.innerHTML = '<a class="cta-btn cta-btn-primary" id="mainApplyBtn">Fork &amp; Apply via PR</a>' +
+ctaDiv.innerHTML = '<button class="cta-btn cta-btn-primary" id="mainApplyBtn" type="button">Fork &amp; Apply via PR</button>' +
   '<a href="mailto:careers@locus.sh?subject=Application%20%7C%20%5BYour%20Name%5D" class="cta-btn">Email careers@locus.sh</a>' +
   '<a href="/jobs.html" target="_blank" class="cta-btn">All Open Roles</a>';
 output.appendChild(ctaDiv);
@@ -691,7 +711,7 @@ activeInput.addEventListener('keydown', onInputKey);
 function createInputLine() {
   var wrap = document.createElement('div');
   wrap.className = 'terminal-input-wrapper';
-  wrap.innerHTML = '<span class="g">▶</span>&nbsp;<span class="w">locus</span><span class="d">:</span><span class="g">~</span>&nbsp;<span class="d">$</span>&nbsp;<input type="text" class="terminal-input" placeholder="type a command..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">';
+  wrap.innerHTML = '<span class="g">▶</span>&nbsp;<span class="w">locus</span><span class="d">:</span><span class="g">~</span>&nbsp;<span class="d">$</span>&nbsp;<input type="text" class="terminal-input" placeholder="type a command..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command input">';
   return wrap;
 }
 
@@ -911,7 +931,7 @@ function handleCommand(cmd) {
     blank();
     var btns = document.createElement('div');
     btns.className = 'cta-container';
-    btns.innerHTML = '<a class="cta-btn cta-btn-primary" id="applyRocketBtn">Fork &amp; Apply via PR</a>' +
+    btns.innerHTML = '<button class="cta-btn cta-btn-primary" id="applyRocketBtn" type="button">Fork &amp; Apply via PR</button>' +
       '<a href="mailto:careers@locus.sh?subject=Application%20%7C%20%5BYour%20Name%5D" class="cta-btn">Email careers@locus.sh</a>' +
       '<a href="/jobs.html" target="_blank" class="cta-btn">View All Roles</a>';
     output.appendChild(btns);

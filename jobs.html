@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Open roles at Locus — The Software Factory. Browse 30+ engineering, product, design, and leadership positions. Apply via PR or email.">
 <title>Locus · Open Roles — The Software Factory</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
@@ -54,7 +55,7 @@
   .dot-red { background: #ff5f57; }
   .dot-yellow { background: #ffbd2e; }
   .dot-green { background: #28c840; }
-  .title-text { color: #444; font-size: 11px; margin-left: 12px; user-select: none; }
+  .title-text { color: #7c7c7c; font-size: 11px; margin-left: 12px; user-select: none; }
 
   .terminal-body {
     background: #0d0d0d;
@@ -67,7 +68,7 @@
   .line { white-space: pre-wrap; word-break: break-word; overflow-wrap: break-word; min-height: 1.7em; }
   .g { color: #00D173; }
   .w { color: #d4d4d4; }
-  .d { color: #444; }
+  .d { color: #7a7a7a; }
   .b { color: #fff; font-weight: 700; }
 
   .back-link {
@@ -101,7 +102,7 @@
   }
 
   .subdept-desc {
-    color: #555;
+    color: #7a7a7a;
     font-size: clamp(11px, 1.1vw, 12px);
     padding-left: 14px;
     margin-bottom: 6px;
@@ -128,7 +129,7 @@
   .job-title a:hover { color: #fff; text-decoration: underline; }
 
   .job-loc {
-    color: #555;
+    color: #7a7a7a;
     font-size: clamp(11px, 1.2vw, 12px);
     white-space: nowrap;
     margin-left: 12px;
@@ -177,7 +178,7 @@
   .filter-tag {
     background: transparent;
     border: 1px solid #333;
-    color: #555;
+    color: #7a7a7a;
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
     padding: 6px 12px;
@@ -188,7 +189,7 @@
   .filter-tag.active { border-color: #00D173; color: #00D173; background: rgba(0,209,115,0.08); }
 
   .summary {
-    color: #555;
+    color: #7a7a7a;
     font-size: clamp(11px, 1.2vw, 12px);
     margin-bottom: 8px;
   }
@@ -216,7 +217,7 @@
   .cta-btn-primary { background: #00D173; color: #0a0a0a; }
   .cta-btn-primary:hover { background: #00ff88; border-color: #00ff88; }
 
-  .no-results { color: #555; padding: 20px 0; text-align: center; }
+  .no-results { color: #7a7a7a; padding: 20px 0; text-align: center; }
 
   @media (max-width: 768px) {
     .title-text { display: none; }
@@ -231,27 +232,58 @@
     .job-loc { display: none; }
     .filter-tag { font-size: 11px; padding: 4px 8px; }
   }
+
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    padding: 8px 16px;
+    background: #00D173;
+    color: #0a0a0a;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 13px;
+    z-index: 1000;
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    top: 0;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
 </style>
 </head>
 <body>
-<div class="scanline"></div>
 
-<div class="terminal">
-  <div class="title-bar">
-    <div class="dot dot-red"></div>
-    <div class="dot dot-yellow"></div>
-    <div class="dot dot-green"></div>
+<a href="#content" class="skip-link">Skip to content</a>
+<div class="scanline" aria-hidden="true"></div>
+
+<main class="terminal" aria-label="Locus Open Roles">
+  <header class="title-bar">
+    <div class="dot dot-red" aria-hidden="true"></div>
+    <div class="dot dot-yellow" aria-hidden="true"></div>
+    <div class="dot dot-green" aria-hidden="true"></div>
     <span class="title-text">factory.locus.sh — /jobs</span>
-  </div>
+  </header>
   <div class="terminal-body" id="content">
     <a href="/" class="back-link">← back to factory.locus.sh</a>
 
-    <div class="line"><span class="g">▶</span> <span class="b">OPEN ROLES AT LOCUS — THE SOFTWARE FACTORY</span></div>
+    <h1 class="line" style="font-size:inherit;font-weight:inherit;margin:0"><span class="g">▶</span> <span class="b">OPEN ROLES AT LOCUS — THE SOFTWARE FACTORY</span></h1>
     <div class="line"><span class="d">  Writing code is intelligence. Knowing what to build next is judgement. We hire for both.</span></div>
     <br>
 
     <div class="filter-bar">
-      <input type="text" class="filter-input" id="searchInput" placeholder="search roles..." autocomplete="off" autofocus>
+      <label for="searchInput" class="visually-hidden">Search open roles</label>
+      <input type="text" class="filter-input" id="searchInput" placeholder="search roles..." autocomplete="off" autofocus aria-label="Search open roles">
       <button class="filter-tag" data-dept="all">All</button>
       <button class="filter-tag" data-dept="Engineering">Eng</button>
       <button class="filter-tag" data-dept="Product">Product</button>
@@ -282,7 +314,7 @@
     <br>
     <div class="line"><span class="d">  Or there's a third way. Curious engineers tend to find it.</span></div>
   </div>
-</div>
+</main>
 
 <script>
 var jobs = [
