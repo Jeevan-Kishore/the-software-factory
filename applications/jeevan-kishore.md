@@ -13,7 +13,7 @@ As a Lead Engineer who has spearheaded frontend architectures for startups and m
 ## Resume
 
 **Resume:** [jeevan-kishore.pdf](resumes/jeevan-kishore.pdf)
-**LinkedIn:** [linkedin.com/in/jeevan-kishore](https://www.linkedin.com/in/jeevan-kishore) *(Inferred from typical naming, please verify)*
+**LinkedIn:** [linkedin.com/in/jeevan-kishore](https://www.linkedin.com/in/jeevan-kishore)
 
 ## One thing you'd change about this repo
 
@@ -40,5 +40,21 @@ The accessibility (a11y) standards of the terminal interface were previously sub
 5. **Assisted Technology Refinements:**
    - Marked all decorative Unicode characters (box-drawing chars `│`, `┌─`, scanlines, and title bar dots) with `aria-hidden="true"` to reduce screen reader noise.
    - Added descriptive `<meta name="description">` tags for better SEO and screen reader context.
+
+### Accessibility Impact: Building for Every Ability
+
+These technical changes directly improve the experience for several key user groups:
+
+*   **👁️ Visual Impairments:**
+    *   **Low Vision & Color Blindness:** By increasing contrast ratios (e.g., from 1.54:1 to 4.53:1), I've ensured the terminal's muted text and hints are readable for users with decreased contrast sensitivity.
+    *   **Blind Users:** The transition to semantic landmarks (`<main>`, `<header>`, `role="log"`) transforms the site from a "black box" of divs into a navigable document that screen readers can parse logically.
+
+*   **⌨️ Motor Disabilities:**
+    *   **Keyboard-Only Navigators:** Implementing `Skip to Content` links and converting non-semantic anchors to `<button>` elements ensures that the site is fully functional for users who rely on keyboards, switches, or eye-tracking software rather than a mouse.
+    *   **Focus Management:** Adding focus trapping to modals prevents "focus leakage," ensuring users with motor impairments don't lose their place in the navigation order.
+
+*   **🧠 Cognitive & Sensory Considerations:**
+    *   **Reducing Noise:** Moving decorative characters (like box-drawing icons and scanlines) behind `aria-hidden="true"` reduces cognitive load for screen reader users, allowing them to focus on the content that matters.
+    *   **Predictability:** Standardizing interactive elements makes the terminal interface more predictable and easier to learn for everyone.
 
 These changes ensure that the "Software Factory" is not just visually stunning but also inclusive and usable for developers across all ability levels.
